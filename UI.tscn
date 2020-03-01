@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+onready var game_log = $GameLog
+
+var game
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func connect_to_game(game):
+	self.game = game
+	game.connect(\"logit\", self, \"add_log\")
+	add_log(\"Connected to game\")
+
+func add_log(text):
+	game_log.text += \"\\n\" + text
+	"
+
+[node name="UI" type="Control"]
+margin_left = 635.0
+margin_right = 1266.0
+margin_bottom = 706.0
+size_flags_horizontal = 3
+script = SubResource( 1 )
+
+[node name="GameLog" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.31702
+margin_top = 7.29761
+margin_right = 3.31702
+margin_bottom = 7.29761
+text = "Hello"
