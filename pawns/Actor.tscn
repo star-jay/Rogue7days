@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://pawns/actor.gd" type="Script" id=1]
-[ext_resource path="res://pawns/sprites/character.png" type="Texture" id=2]
+[ext_resource path="res://pawns/personas.tres" type="Texture" id=2]
 [ext_resource path="res://pawns/Camera.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
@@ -63,7 +63,6 @@ tracks/2/keys = {
 }
 
 [node name="Actor" type="Node2D"]
-position = Vector2( 163.043, 118.579 )
 z_index = 1
 script = ExtResource( 1 )
 
@@ -76,10 +75,12 @@ anims/walk = SubResource( 2 )
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-position = Vector2( 1.43051e-06, -1.90735e-06 )
 texture = ExtResource( 2 )
 centered = false
-offset = Vector2( -32, -32 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 16, 32, 16, 16 )
+region_filter_clip = true
 
 [node name="CameraPivot" type="Position2D" parent="."]
 script = ExtResource( 3 )
@@ -90,7 +91,7 @@ position = Vector2( 90, 0 )
 [node name="Camera2D" type="Camera2D" parent="CameraPivot/CameraOffset"]
 position = Vector2( 1.82269, 0.911362 )
 current = true
-zoom = Vector2( 0.8, 0.8 )
+zoom = Vector2( 0.4, 0.4 )
 limit_smoothed = true
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false

@@ -13,9 +13,12 @@ func _ready():
 	pass
 	
 func initialize(players):
+	characters = []
 	for player in players:
 		if player.type == CELL_TYPES.ACTOR:
+			player.start_level()
 			characters.append(player)
+	
 	set_active_character(0)
 	
 func set_active_character(index : int):
@@ -28,16 +31,16 @@ func set_active_character(index : int):
 
 func play_turn():
 	if len(characters) > 0:
-		print("wait")
+		# print("wait")
+		active_character.camera.current = true
 		active_character.play_turn()
-		yield(active_character, "moved")
-		print("moved")
+		
+		# wait until character is done with his turn
+		yield(active_character, "end_of_turn")
 		
 		# Cycle through characters
-		print(len(characters))
-		
-		var new_index = int (active_character.get_index() + 1) % len(characters)
+		var new_index = int (characters.find(active_character) + 1) % len(characters)
 		set_active_character(new_index)
 		
-		print("end of turn")
+		# print("end of turn")
 		emit_signal("end_of_turn")

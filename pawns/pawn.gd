@@ -7,17 +7,18 @@ class_name Pawn
 
 var game 
 var active : bool = false
+var speed : int = 0
+var moves_left : int = 0
 
-signal moved
+signal end_of_turn
 
 func initialize(game):
 	self.game = game
 
 func play_turn():
-	if active:
-		if game:
-			game.logit(self.name + ": Its my turn")
-		print(self.name + ": Its my turn")
-	else:
-		print(self.name + ": I wish I was active")
+	self.moves_left = self.speed 
+	
+	if game:
+		game.logit(self.name + ": Its my turn")
+
 		
