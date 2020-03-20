@@ -5,6 +5,8 @@ enum { EMPTY = -1, ACTOR, OBSTACLE, OBJECT}
 # set parent as game var
 onready var game = $".."
 onready var path_finder = $PathFinder
+onready var level_generator = $LevelGenerator
+
 onready var actor = $Actor
 
 # onready var level_generator = $LevelGenerato
@@ -28,8 +30,11 @@ func _input(event):
 		# actor.position = event.position
 
 	
-func load_level(level):
-	size = len(level)
+func new_level(level_size):
+	print("new level")
+	size = level_size
+	var level = level_generator.generate_level(level_size)
+		
 	collectables = []
 	actors = []
 	
@@ -109,8 +114,9 @@ func request_move(pawn, direction):
 		EMPTY:
 			return update_pawn_position(pawn, cell_start, cell_target)
 		OBJECT:
-			collect_objective(cell_target)			
+			collect_objective(cell_target)		
 			return update_pawn_position(pawn, cell_start, cell_target)
+				
 		ACTOR:			
 			game.logit("Cell %s contains actor")
 
@@ -134,7 +140,7 @@ func add_actor(grid_position : Vector2):
 	var actor = scene.instance()
 	
 	actor.set_name("Player %s " % [len(actors) + 1])
-	actor.position = map_to_world(grid_position) # + cell_size / 2
+	actor.position = map_to_world(grid_position) + cell_size / 2
 	actor.type = ACTOR
 	add_child(actor)
 	actors.append(actor)
@@ -143,10 +149,17 @@ func add_actor(grid_position : Vector2):
 func add_obstacle(grid_position : Vector2):
 	set_cellv(grid_position, OBSTACLE)
 	
-func find_path(from_node, to_node):
+func find_path_nodes(from_node, to_node):
 	return path_finder.A_Star(
 		world_to_map(from_node.position), 
 		world_to_map(to_node.position),
+		get_walkable_cells()
+	)
+	
+func find_path(from, to):
+	return path_finder.A_Star(
+		world_to_map(from), 
+		world_to_map(to),
 		get_walkable_cells()
 	)
 	

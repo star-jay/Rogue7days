@@ -5,7 +5,7 @@ onready var turn_queue : TurnQueue = $TurnQueue
 onready var grid : TileMap = $Grid
 onready var astar : TileMap = $Astar
 
-onready var level_generator = $LevelGenerator
+onready var level = $Level
 onready var target = $Target
 
 var last_mouse_position = Vector2(0,0)
@@ -15,44 +15,30 @@ signal logit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	new_level()
+	new_stage()
 	
-func _input(event):
-	# cath mouse movement
-	# get_global_mouse_position()
-	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == BUTTON_LEFT:
-			var mouse_position = get_global_mouse_position()
-			target.position = grid.map_to_world(grid.world_to_map(mouse_position))
-			
-			
-			if actor:
-				var path = grid.find_path(actor, target)
-				if path:
-					for cell in path:
-						grid.add_collectable(cell)
 				
-func new_level():
-	var level = level_generator.generate_level(10)
-	grid.load_level(level)
+func new_stage():
+	var stage = level.new_level(15)
 	# add two characters
-	actor = grid.add_actor(grid.random_node())
-	
+	actor = level.add_actor(level.random_node())
+	actor = level.add_actor(level.random_node())
 	# something to do
-	grid.add_collectable(grid.random_node())
+	level.add_collectable(level.random_node())
 	
 	start_level()	
 		
 func start_level():
 	# Add all characters to the turn_queue	
-	turn_queue.initialize(grid.actors)
+	turn_queue.initialize(level.actors)
 	# first turn
 	play_turn()	
-	yield(grid, "end_of_level")
-	grid.end_level()
+	yield(level, "end_of_level")
+	level.end_level()
 	logit("level ended")
-
-	new_level()	
+	
+	# keep going
+	new_stage()	
 	
 func play_turn():
 	var pawn : Pawn = get_active_pawn()

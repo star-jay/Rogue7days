@@ -76,7 +76,6 @@ anims/walk = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
 texture = ExtResource( 2 )
-centered = false
 flip_h = true
 region_enabled = true
 region_rect = Rect2( 16, 32, 16, 16 )

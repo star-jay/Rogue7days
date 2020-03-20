@@ -6,6 +6,7 @@ onready var camera = $CameraPivot/CameraOffset/Camera2D
 var look_direction = Vector2(1, 0)
 var grid_position = Vector2(0, 0)
 
+var path
 
 func _ready():
 	# set initial stats
@@ -16,11 +17,19 @@ func start_level():
 	update_look_direction(look_direction)	
 	set_camera_limits()
 
+func _input(event):
+	# cath mouse movement
+	# get_global_mouse_position()
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == BUTTON_LEFT:
+			var mouse_position = get_global_mouse_position()
+			# target.position = grid.map_to_world(grid.world_to_map(mouse_position))
+						
+			path = grid.find_path(self.position, mouse_position)
+						
 			
 func _process(delta):
 	if active:
-		return
-		
 		# code for getting direction though pathfinding
 		var input_direction = get_input_direction()
 		if not input_direction:
@@ -36,8 +45,6 @@ func _process(delta):
 
 func get_input_direction():
 	var co_ords = grid.world_to_map(self.position)
-	var target = grid.get_target()
-	var path = grid.find_path(self, target)
 	
 	if path and len(path) > 1:
 		var dir = path[1] - co_ords
