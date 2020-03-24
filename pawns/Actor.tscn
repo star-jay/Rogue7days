@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://pawns/actor.gd" type="Script" id=1]
 [ext_resource path="res://pawns/personas.tres" type="Texture" id=2]
-[ext_resource path="res://pawns/Camera.gd" type="Script" id=3]
+[ext_resource path="res://assets/lightmap.png" type="Texture" id=3]
+[ext_resource path="res://pawns/Camera.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "bump"
@@ -81,8 +82,16 @@ region_enabled = true
 region_rect = Rect2( 16, 32, 16, 16 )
 region_filter_clip = true
 
+[node name="Light2D" type="Light2D" parent="Pivot"]
+position = Vector2( 0.844444, -0.633326 )
+scale = Vector2( 0.584375, 0.582725 )
+texture = ExtResource( 3 )
+shadow_enabled = true
+shadow_item_cull_mask = 2
+
 [node name="CameraPivot" type="Position2D" parent="."]
-script = ExtResource( 3 )
+visible = false
+script = ExtResource( 4 )
 
 [node name="CameraOffset" type="Position2D" parent="CameraPivot"]
 position = Vector2( 90, 0 )

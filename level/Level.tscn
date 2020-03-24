@@ -1,14 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tilesets/tiles/floor.tres" type="TileSet" id=1]
-[ext_resource path="res://grid/level.gd" type="Script" id=2]
+[ext_resource path="res://level/level.gd" type="Script" id=2]
 [ext_resource path="res://pawns/PathFinding.gd" type="Script" id=3]
 [ext_resource path="res://LevelGenerator.gd" type="Script" id=4]
 [ext_resource path="res://WaveFunction.gd" type="Script" id=5]
+[ext_resource path="res://level/mouse_follow.gd" type="Script" id=6]
+[ext_resource path="res://tilesets/tiles/Items/Rock.png" type="Texture" id=7]
 
 [node name="Level" type="TileMap"]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
+occluder_light_mask = 2
 format = 1
 script = ExtResource( 2 )
 
@@ -20,3 +23,12 @@ script = ExtResource( 4 )
 
 [node name="WaveFunction" type="Node" parent="LevelGenerator"]
 script = ExtResource( 5 )
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+texture = ExtResource( 7 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 16, 16, 16, 16 )

@@ -98,3 +98,11 @@ func set_camera_limits():
 	    camera.limit_right = map_limits.end.x * map_cellsize.x
 	    camera.limit_top = map_limits.position.y * map_cellsize.y
 	    camera.limit_bottom = map_limits.end.y * map_cellsize.y
+
+func play_turn():
+	self.moves_left = self.speed 
+	
+	if game:
+		game.logit(self.name + ": Its my turn")
+
+		

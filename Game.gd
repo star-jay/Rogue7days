@@ -17,11 +17,12 @@ signal logit
 func _ready():
 	new_stage()
 	
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 				
 func new_stage():
-	var stage = level.new_level(15)
+	level.end_level()
+	var stage = level.new_level(100)
 	# add two characters
-	actor = level.add_actor(level.random_node())
 	actor = level.add_actor(level.random_node())
 	# something to do
 	level.add_collectable(level.random_node())
@@ -34,7 +35,6 @@ func start_level():
 	# first turn
 	play_turn()	
 	yield(level, "end_of_level")
-	level.end_level()
 	logit("level ended")
 	
 	# keep going

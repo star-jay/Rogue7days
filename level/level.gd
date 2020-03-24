@@ -46,6 +46,9 @@ func new_level(level_size):
 				add_obstacle(position)
 			else:
 				set_cellv(position, -1)
+				
+	for cell in get_walkable_cells():
+		set_cellv(cell, 0)
 
 func get_collectable(co_ords):
 	for node in collectables:
@@ -109,6 +112,11 @@ func request_move(pawn, direction):
 	var cell_start = world_to_map(pawn.position)
 	var cell_target = cell_start + direction
 	
+	if cell_target in get_walkable_cells():
+		return update_pawn_position(pawn, cell_start, cell_target)
+	else:
+		game.logit("Cell %s not walkable" % [cell_target])
+	
 	var cell_target_type = get_cellv(cell_target)
 	match cell_target_type:
 		EMPTY:
@@ -121,8 +129,6 @@ func request_move(pawn, direction):
 			game.logit("Cell %s contains actor")
 
 func update_pawn_position(pawn, cell_start, cell_target):
-	set_cellv(cell_target, pawn.type)
-	set_cellv(cell_start, EMPTY)
 	return map_to_world(cell_target) + cell_size / 2
 	
 func add_collectable(grid_position : Vector2):
@@ -139,6 +145,7 @@ func add_actor(grid_position : Vector2):
 	var scene = load("res://pawns/Actor.tscn")
 	var actor = scene.instance()
 	
+	actor.initialize(game)
 	actor.set_name("Player %s " % [len(actors) + 1])
 	actor.position = map_to_world(grid_position) + cell_size / 2
 	actor.type = ACTOR

@@ -1,6 +1,11 @@
-[gd_resource type="TileSet" load_steps=2 format=2]
+[gd_resource type="TileSet" load_steps=3 format=2]
 
 [ext_resource path="res://tilesets/tiles/Objects/Floor.png" type="Texture" id=1]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+closed = false
+cull_mode = 2
+polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [resource]
 0/name = "Floor.png 0"
@@ -20,6 +25,7 @@
 1/region = Rect2( 16, 64, 16, 16 )
 1/tile_mode = 0
 1/occluder_offset = Vector2( 0, 0 )
+1/occluder = SubResource( 1 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shapes = [  ]
 1/z_index = 0
