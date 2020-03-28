@@ -34,7 +34,7 @@ _global_script_class_icons={
 
 config/name="Grid Movement"
 run/main_scene="res://Main.tscn"
-boot_splash/bg_color=Color( 0.0470588, 0.00784314, 0.00784314, 1 )
+boot_splash/bg_color=Color( 0.364706, 0.184314, 0.184314, 1 )
 config/icon="res://icon.png"
 
 [debug]
@@ -50,5 +50,5 @@ window/stretch/aspect="keep"
 
 [rendering]
 
-environment/default_clear_color=Color( 0, 0, 0, 1 )
+environment/default_clear_color=Color( 0.113725, 0.152941, 0.168627, 1 )
 environment/default_environment="res://default_env.tres"

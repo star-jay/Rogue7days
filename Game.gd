@@ -7,21 +7,24 @@ onready var astar : TileMap = $Astar
 
 onready var level = $Level
 onready var target = $Target
+onready var actor = $Actor
 
 var last_mouse_position = Vector2(0,0)
-var actor
+
+var demo = false
 
 signal logit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	new_stage()
+	if !demo:
+		new_stage()
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 				
 func new_stage():
 	level.end_level()
-	var stage = level.new_level(100)
+	var stage = level.new_level(10)
 	# add two characters
 	actor = level.add_actor(level.random_node())
 	# something to do

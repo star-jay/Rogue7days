@@ -1,6 +1,6 @@
 extends TileMap
 
-enum { EMPTY = -1, ACTOR, OBSTACLE, OBJECT}
+enum { EMPTY = -1, FLOOR = 0, OBSTACLE = 2, OBJECT = 1, ACTOR = 3}
 
 # set parent as game var
 onready var game = $".."
@@ -49,6 +49,8 @@ func new_level(level_size):
 				
 	for cell in get_walkable_cells():
 		set_cellv(cell, 0)
+		
+	update_bitmask_region(Vector2(0, 0), Vector2(size, size))
 
 func get_collectable(co_ords):
 	for node in collectables:
@@ -175,7 +177,7 @@ func get_walkable_cells():
 	for x in range(size):
 		for y in range(size):
 			# TODO: fix this
-			if get_cellv(Vector2(x, y)) != 1:
+			if get_cellv(Vector2(x, y)) != OBSTACLE:
 				cells.append(Vector2(x, y))
 	return cells
 	

@@ -15,9 +15,8 @@ func _ready():
 func initialize(players):
 	characters = []
 	for player in players:
-		if player.type == CELL_TYPES.ACTOR:
-			player.start_level()
-			characters.append(player)
+		player.start_level()
+		characters.append(player)
 	
 	set_active_character(0)
 	

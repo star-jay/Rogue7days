@@ -1,6 +1,6 @@
 extends Node
 
-enum { EMPTY = -1, ACTOR, OBSTACLE, OBJECT}
+enum { EMPTY = -1, FLOOR = 0, OBSTACLE = 2, OBJECT = 1, ACTOR = 3}
 
 var nr_of_collectables = 12
 var random = RandomNumberGenerator.new()

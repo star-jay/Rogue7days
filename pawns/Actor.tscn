@@ -86,8 +86,13 @@ region_filter_clip = true
 position = Vector2( 0.844444, -0.633326 )
 scale = Vector2( 0.584375, 0.582725 )
 texture = ExtResource( 3 )
-shadow_enabled = true
 shadow_item_cull_mask = 2
+
+[node name="Shadow" type="Light2D" parent="Pivot"]
+position = Vector2( 0.84444, -0.422213 )
+scale = Vector2( 0.844965, 0.821874 )
+texture = ExtResource( 3 )
+shadow_enabled = true
 
 [node name="CameraPivot" type="Position2D" parent="."]
 visible = false
